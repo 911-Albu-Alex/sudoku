@@ -3,7 +3,7 @@ import random
 
 class SudokuBoard:
     def __init__(self, difficulty, board_size=9):
-        self._board = [[0 for i in range(board_size)] for j in range(board_size)]
+        self._board = [[' ' for i in range(board_size)] for j in range(board_size)]
         difficulty_dictionary = {"easy": 40, "hard": 23}
         self._gameDifficulty = difficulty_dictionary[difficulty]
         self._boardSize = board_size
@@ -15,6 +15,11 @@ class SudokuBoard:
 
         return False
 
+    def is_square_empty(self, row, column):
+        if self._board[row][column] == ' ':
+            return True
+        return False
+
     def place_numbers(self):
         placed_numbers = 0
         while placed_numbers < self._gameDifficulty:
@@ -22,7 +27,7 @@ class SudokuBoard:
             column = random.randint(0, self._boardSize-1)
             value = random.randint(1, self._boardSize)
 
-            if not self.is_on_row_or_column(row, column, value):
+            if not self.is_on_row_or_column(row, column, value) and self.is_square_empty(row, column):
                 self._board[row][column] = value
                 placed_numbers += 1
 

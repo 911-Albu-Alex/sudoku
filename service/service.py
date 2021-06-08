@@ -16,3 +16,11 @@ class Service:
 
     def display_board(self):
         self._sudokuBoard.display_board()
+
+    def is_game_over(self):
+        board = self.get_board()
+        for row in range(len(board)):
+            for column in range(len(board)):
+                if self._sudokuBoard.is_square_empty(row, column):
+                    return False
+        return True
